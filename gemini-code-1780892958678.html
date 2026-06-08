@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Detective: Misi LCM & GCF Angeliq! 🐾</title>
+    <style>
+        :root {
+            --primary: #ff9f43;
+            --secondary: #5f27cd;
+            --success: #10ac84;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #2d3436;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff9f43, #ff6b6b);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header h1 { margin: 0; font-size: 2.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+        .header p { margin: 0.5rem 0 0 0; font-size: 1.2rem; font-style: italic; }
+
+        .container {
+            max-width: 800px;
+            margin: -20px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border: 2px solid #f1f2f6;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            color: var(--secondary);
+            border-bottom: 3px dashed var(--primary);
+            padding-bottom: 8px;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        ul { padding-left: 20px; }
+        li { margin-bottom: 10px; }
+
+        .badge {
+            background-color: #ffeaa7;
+            color: #d35400;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Toolkit / Table section */
+        .toolkit-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .toolkit-container { grid-template-columns: 1fr; }
+        }
+
+        .toolkit-box {
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #eee;
+        }
+
+        .gcf-box { background-color: #e8f8f5; border-color: #a3e4d7; }
+        .lcm-box { background-color: #eef2fa; border-color: #b4c6e7; }
+
+        .toolkit-box h3 { margin-top: 0; color: #2c3e50; }
+
+        /* Interactive Buttons */
+        .btn-check {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+
+        .btn-check:hover { background-color: #4834d4; transform: scale(1.05); }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            display: none;
+            font-weight: bold;
+            animation: fadeIn 0.5s;
+        }
+
+        .correct { background-color: #d4edda; color: #155724; border-left: 5px solid #28a745; }
+
+        .mascot-chat {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #fff5eb;
+            padding: 15px;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .mascot-img { font-size: 3rem; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🐾 Misi Detektif Angeliq! 🐶</h1>
+        <p>Memecahkan Kode Rahasia GCF & LCM bersama Pasukan Bulu</p>
+    </div>
+
+    <div class="container">
+        
+        <div class="card" style="margin-top: 15px;">
+            <div class="mascot-chat">
+                <div class="mascot-img">🐕</div>
+                <div>
+                    <strong>Detektif Milo (Si Anjing Pintar):</strong><br>
+                    "Hi Angeliq! Aku excited banget mau detektif-detektifan bareng kamu hari ini! Yuk, kita pakai otot matematika kamu buat bantu temen-temen berbulu kita!"
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🎯 Target Misi Kita Hari Ini</h2>
+            <ul>
+                <li>Spesialis membedakan kapan harus pakai <strong>GCF</strong> atau <strong>LCM</strong> lewat kata kunci rahasia.</li>
+                <li>Bisa menghitung <strong>GCF</strong> untuk membagi makanan/mainan jadi kelompok yang sama rata (Anti-Rebutan!).</li>
+                <li>Bisa menghitung <strong>LCM</strong> buat menebak kapan kejadian seru bakal barengan lagi.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>🧠 Brain Scan: Pemanasan Otot Detektif!</h2>
+            <p>Yuk bantu Kucing Oren menghitung angka-angka ini sebelum kita mulai misi utama!</p>
+            
+            <div class="mascot-chat" style="background-color: #f5f0ff; border-left-color: var(--secondary);">
+                <div class="mascot-img">🐱</div>
+                <div>
+                    <strong>Detektif Cleo (Si Kucing Oren):</strong><br>
+                    "Coba tebak, berapa sih <strong>GCF (Faktor Persekutuan Terbesar)</strong> dari angka 10 dan 15?"
+                </div>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <input type="radio" id="wu1" name="warmup" value="3"> <label for="wu1">3</label><br>
+                <input type="radio" id="wu2" name="warmup" value="5"> <label for="wu2">5 (Karena 10 dan 15 bisa dibagi habis oleh 5)</label><br>
+                <input type="radio" id="wu3" name="warmup" value="10"> <label for="wu3">10</label>
+            </div>
+            
+            <button class="btn-check" onclick="checkWarmUp()">Cek Jawaban 🐾</button>
+            <div id="wu-feedback" class="feedback correct"></div>
+        </div>
+
+        <div class="card">
+            <h2>🧰 Kotak Alat Detektif: GCF vs LCM</h2>
+            <p>Ingat Angeliq, trik paling hebat dari seorang detektif adalah menemukan <strong>Kata Kunci Rahasia</strong> di dalam cerita:</p>
+            
+            <div class="toolkit-container">
+                <div class="toolkit-box gcf-box">
+                    <h3>🍖 Kapan Pakai GCF?</h3>
+                    <p>Kalau ceritanya tentang <strong>BERBAGI, MEMOTONG, atau MEMBAGI</strong> sesuatu menjadi sama rata tanpa sisa.</p>
+                    <p><strong>Kata Kunci:</strong></p>
+                    <ul>
+                        <li>Maximum / Paling banyak</li>
+                        <li>Equal groups / Kelompok sama rata</li>
+                        <li>No leftovers / Tanpa sisa</li>
+                    </ul>
+                </div>
+                <div class="toolkit-box lcm-box">
+                    <h3>⏰ Kapan Pakai LCM?</h3>
+                    <p>Kalau ceritanya tentang <strong>WAKTU, PERULANGAN, atau KAPAN AKAN BERSAMAAN LAGI</strong> di masa depan.</p>
+                    <p><strong>Kata Kunci:</strong></p>
+                    <ul>
+                        <li>Next time / Kapan lagi</li>
+                        <li>Both together / Bersama lagi</li>
+                        <li>Minimum / Paling sedikit</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🍏 Kasus 1: Keranjang Buah Maya (GCF)</h2>
+            <p>Maya punya <strong>12 Apel</strong> dan <strong>18 Jeruk</strong>. Dia ingin membuat keranjang buah yang isinya persis sama untuk hadiah. Berapa keranjang paling banyak yang bisa dibuat Maya?</p>
+            
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                <strong>🔍 Cara Berpikir Detektif:</strong><br>
+                Karena kita mau <em>membagi/memotong</em> buah menjadi beberapa keranjang secara adil, kita pakai <strong>GCF</strong>!
+                <br><br>
+                • Faktor dari 12 = 1, 2, 3, 4, <strong>6</strong>, 12<br>
+                • Faktor dari 18 = 1, 2, 3, <strong>6</strong>, 9, 18<br>
+                <br>
+                Angka terbesar yang sama adalah <strong>6</strong>! Jadi, Maya bisa membuat <strong>6 keranjang buah</strong> yang identik. 🧺
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🚨 Kasus 2: Lampu Kerlip di Pet Shop (LCM)</h2>
+            <p>Di toko hewan, ada lampu hias biru menyala setiap <strong>4 detik</strong>, dan lampu merah menyala setiap <strong>6 detik</strong>. Jika mereka menyala bersamaan di awal, detik ke berapakah mereka akan menyala bersamaan lagi?</p>
+            
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                <strong>🔍 Cara Berpikir Detektif:</strong><br>
+                Karena ini masalah <em>waktu yang berulang</em> dan mencari kapan mereka "bersamaan lagi", kita pakai <strong>LCM</strong>!
+                <br><br>
+                • Kelipatan 4 = 4, 8, <strong>12</strong>, 16, 20...<br>
+                • Kelipatan 6 = 6, <strong>12</strong>, 18, 24...<br>
+                <br>
+                Kelipatan terkecil yang sama adalah <strong>12</strong>! Jadi, kedua lampu akan berkedip bersamaan lagi pada detik ke-<strong>12</strong>. 💡
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🕵️‍♀️ Misi Mandiri Angeliq!</h2>
+            <p>Coba pecahkan kasus di bawah ini, ketik jawabanmu, lalu tes apakah analisis detektifmu benar!</p>
+            
+            <div class="mascot-chat">
+                <div class="mascot-img">🐶</div>
+                <div>
+                    <strong>Kasus Keripik Anjing:</strong><br>
+                    "Sarah punya 15 biskuit anjing rasa daging dan 20 biskuit rasa ayam. Dia mau membaginya ke kantong-kantong hadiah kecil secara rata untuk teman-temannya tanpa ada sisa. Berapa kantong paling banyak yang bisa dibuat?"
+                </div>
+            </div>
+
+            <p><strong>Pertanyaan 1: Pakai rumus apa kita?</strong></p>
+            <input type="radio" id="m1-gcf" name="misi1_type" value="GCF"> <label for="m1-gcf">GCF (Karena membagi makanan jadi kantong adil)</label><br>
+            <input type="radio" id="m1-lcm" name="misi1_type" value="LCM"> <label for="m1-lcm">LCM (Karena menunggu biskuitnya lompat)</label>
+            
+            <p><strong>Pertanyaan 2: Berapa hasil akhirnya?</strong></p>
+            <input type="number" id="misi1_ans" placeholder="Isi angka saja..." style="padding: 8px; border-radius: 5px; border: 1px solid #ccc; width: 120px;">
+
+            <br><br>
+            <button class="btn-check" onclick="checkMisi()">Kirim Bukti Detektif! 📑</button>
+            <div id="misi-feedback" class="feedback correct"></div>
+        </div>
+
+        <div class="card" style="text-align: center; background: #faf0e6;">
+            <h3>🎉 Kamu Hebat, Detektif Angeliq!</h3>
+            <p>Misi hari ini selesai dengan hasil luar biasa. Jangan lupa cek tantangan seru lainnya di platform kita ya!</p>
+            <a href="https://learn.algonova.id/login" target="_blank" style="background: var(--primary); color: white; padding: 10px 20px; text-decoration: none; border-radius: 20px; font-weight: bold; display: inline-block;">Masuk ke Platform AlgoNova 🚀</a>
+        </div>
+
+    </div>
+
+    <script>
+        function checkWarmUp() {
+            var selected = document.querySelector('input[name="warmup"]:checked');
+            var feedback = document.getElementById('wu-feedback');
+            
+            if(!selected) {
+                feedback.style.display = "block";
+                feedback.className = "feedback";
+                feedback.style.backgroundColor = "#ffeaa7";
+                feedback.style.color = "#d35400";
+                feedback.innerHTML = "🐾 Pilihlah salah satu jawaban dulu, Angeliq!";
+                return;
+            }
+
+            if(selected.value === "5") {
+                feedback.style.display = "block";
+                feedback.className = "feedback correct";
+                feedback.innerHTML = "🎉 Hebat Angeliq! Betul sekali, GCF dari 10 dan 15 adalah 5! Otot matematikamu sudah siap! 🐱✨";
+            } else {
+                feedback.style.display = "block";
+                feedback.className = "feedback";
+                feedback.style.backgroundColor = "#ffdddd";
+                feedback.style.color = "#c0392b";
+                feedback.innerHTML = "Oops! Kurang tepat. Coba ingat angka terbesar yang bisa membagi habis 10 dan 15. Yuk coba lagi! 🐕";
+            }
+        }
+
+        function checkMisi() {
+            var typeSelected = document.querySelector('input[name="misi1_type"]:checked');
+            var numAns = document.getElementById('misi1_ans').value;
+            var feedback = document.getElementById('misi-feedback');
+
+            if(!typeSelected || !numAns) {
+                feedback.style.display = "block";
+                feedback.className = "feedback";
+                feedback.style.backgroundColor = "#ffeaa7";
+                feedback.style.color = "#d35400";
+                feedback.innerHTML = "🐾 Lengkapi metode dan isi angka jawabannya dulu ya!";
+                return;
+            }
+
+            if(typeSelected.value === "GCF" && parseInt(numAns) === 5) {
+                feedback.style.display = "block";
+                feedback.className = "feedback correct";
+                feedback.innerHTML = "🏆 LUAR BIASA! Analisis kamu 100% Benar! Kita pakai GCF(15, 20) dan hasilnya adalah 5 kantong hadiah! Kamu adalah Top Pet Detective! 🐶❤️🐱";
+            } else {
+                feedback.style.display = "block";
+                feedback.className = "feedback";
+                feedback.style.backgroundColor = "#ffdddd";
+                feedback.style.color = "#c0392b";
+                feedback.innerHTML = "Hmm, petunjuknya belum pas. Karena kita membagi biskuit, kita pakai GCF. Coba hitung kembali GCF dari 15 dan 20 ya! Kamu pasti bisa! 💪";
+            }
+        }
+    </script>
+</body>
+</html>

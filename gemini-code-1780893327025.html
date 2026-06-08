@@ -1,0 +1,826 @@
+:Pet Detective Hub:pet_detective_hub.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angeliq's Pet Detective Hub 🐾</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Cute Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #fcf8f2;
+        }
+        h1, h2, h3, h4, .font-kids {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .bounce-hover:hover {
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Header Area -->
+    <header class="bg-gradient-to-r from-amber-400 via-orange-400 to-pink-500 text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4 text-center md:text-left">
+                <span class="text-5xl animate-bounce">🕵️‍♀️🐕🐱</span>
+                <div>
+                    <h1 class="text-3xl font-bold tracking-wide">Angeliq's Pet Detective Hub</h1>
+                    <p class="text-orange-100 text-sm md:text-base font-medium">Mastering GCF & LCM with Milo and Whiskers! 🐾</p>
+                </div>
+            </div>
+            <!-- Score Badge -->
+            <div id="quiz-badge" class="hidden flex items-center gap-4 bg-white/20 backdrop-blur-md px-6 py-2 rounded-full border border-white/30 shadow-inner">
+                <div class="text-center">
+                    <span class="block text-[10px] uppercase tracking-wider text-orange-100 font-bold">Solved Cases</span>
+                    <span id="solved-counter" class="text-xl font-bold font-kids">0 / 10</span>
+                </div>
+                <div class="h-6 w-[1px] bg-white/30"></div>
+                <div class="text-center">
+                    <span class="block text-[10px] uppercase tracking-wider text-orange-100 font-bold">Stars</span>
+                    <span id="stars-counter" class="text-xl font-bold font-kids">⭐ 0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="bg-white border-b border-orange-100 shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 flex justify-around md:justify-start gap-4">
+            <button id="tab-learn-btn" onclick="switchTab('learn')" class="py-4 px-6 border-b-4 border-orange-500 text-orange-600 font-bold text-sm md:text-base flex items-center gap-2 transition-all">
+                🔬 Lesson Toolkit
+            </button>
+            <button id="tab-quiz-btn" onclick="switchTab('quiz')" class="py-4 px-6 border-b-4 border-transparent text-slate-500 hover:text-orange-500 font-bold text-sm md:text-base flex items-center gap-2 transition-all">
+                📝 Interactive Homework
+            </button>
+        </div>
+    </div>
+
+    <!-- Active Progress Tracker for Quiz Tab -->
+    <div id="progress-container" class="hidden bg-amber-50 border-b border-orange-100 py-3 px-4">
+        <div class="max-w-6xl mx-auto flex items-center justify-between gap-4">
+            <span class="text-xs font-bold text-orange-400 uppercase tracking-wider">Milo's Journey:</span>
+            <div class="flex-1 bg-white border border-orange-200 h-4 rounded-full relative overflow-hidden">
+                <div id="progress-bar" class="bg-gradient-to-r from-orange-400 to-amber-400 h-full w-0 transition-all duration-500 rounded-full"></div>
+                <div id="dog-runner" class="absolute top-1/2 -translate-y-1/2 left-0 transition-all duration-500 text-xl" style="margin-left: -10px;">🐶</div>
+            </div>
+            <span class="text-xl">🍖</span>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6">
+        
+        <!-- ================== TAB 1: LEARN TOOLKIT ================== -->
+        <section id="tab-learn" class="space-y-6">
+            
+            <!-- Learning Objectives Cards -->
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-orange-100">
+                <h2 class="text-2xl font-bold text-slate-700 mb-4 flex items-center gap-2">
+                    🎯 Learning Objectives
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-orange-50 p-4 rounded-2xl border border-orange-100 flex gap-3">
+                        <span class="text-2xl">🔍</span>
+                        <div>
+                            <h3 class="font-bold text-orange-800">Identify Situational Clues</h3>
+                            <p class="text-sm text-slate-600">Spot keywords to easily distinguish between GCF and LCM in tricky word problems.</p>
+                        </div>
+                    </div>
+                    <div class="bg-indigo-50 p-4 rounded-2xl border border-indigo-100 flex gap-3">
+                        <span class="text-2xl">🍰</span>
+                        <div>
+                            <h3 class="font-bold text-indigo-800">GCF: Share & Divide</h3>
+                            <p class="text-sm text-slate-600">Find the maximum number of equal groups or items without any leftovers!</p>
+                        </div>
+                    </div>
+                    <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 flex gap-3">
+                        <span class="text-2xl">⏰</span>
+                        <div>
+                            <h3 class="font-bold text-emerald-800">LCM: Future Matches</h3>
+                            <p class="text-sm text-slate-600">Predict the exact future moment when repeating events will happen at the same time.</p>
+                        </div>
+                    </div>
+                    <div class="bg-pink-50 p-4 rounded-2xl border border-pink-100 flex gap-3">
+                        <span class="text-2xl">🐕</span>
+                        <div>
+                            <h3 class="font-bold text-pink-800">Be a Math Detective</h3>
+                            <p class="text-sm text-slate-600">Translate fun pet stories into simple, elegant math operations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brain Scan Warm Up -->
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-orange-100">
+                <h2 class="text-2xl font-bold text-slate-700 mb-2 flex items-center gap-2">
+                    🧠 Interactive Brain Scan!
+                </h2>
+                <p class="text-sm text-slate-500 mb-4">Let's warm up your math detective muscles before starting the case files.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Warmup Q1 -->
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                        <span class="text-xs font-bold text-indigo-500 uppercase">Challenge 1 (Factors)</span>
+                        <p class="font-bold text-slate-700 mt-1 mb-2">Identify the Greatest Common Factor (GCF) of 10 and 15:</p>
+                        <div class="flex gap-2">
+                            <button onclick="checkWarmupAnswer(this, 5, 'correct-1')" class="bg-white border border-slate-300 hover:border-indigo-400 px-4 py-2 rounded-xl text-sm font-bold transition-all">3</button>
+                            <button onclick="checkWarmupAnswer(this, 5, 'correct-1')" class="bg-white border border-slate-300 hover:border-indigo-400 px-4 py-2 rounded-xl text-sm font-bold transition-all">5</button>
+                            <button onclick="checkWarmupAnswer(this, 5, 'correct-1')" class="bg-white border border-slate-300 hover:border-indigo-400 px-4 py-2 rounded-xl text-sm font-bold transition-all">10</button>
+                        </div>
+                        <p id="correct-1" class="text-xs font-bold text-emerald-600 mt-2 hidden">✨ Correct! Factors of 10 are (1,2,5,10) & 15 are (1,3,5,15). Greatest is 5!</p>
+                    </div>
+
+                    <!-- Warmup Q2 -->
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                        <span class="text-xs font-bold text-indigo-500 uppercase">Challenge 2 (Multiples)</span>
+                        <p class="font-bold text-slate-700 mt-1 mb-2">Identify the Least Common Multiple (LCM) of 4 and 5:</p>
+                        <div class="flex gap-2">
+                            <button onclick="checkWarmupAnswer(this, 20, 'correct-2')" class="bg-white border border-slate-300 hover:border-indigo-400 px-4 py-2 rounded-xl text-sm font-bold transition-all">10</button>
+                            <button onclick="checkWarmupAnswer(this, 20, 'correct-2')" class="bg-white border border-slate-300 hover:border-indigo-400 px-4 py-2 rounded-xl text-sm font-bold transition-all">15</button>
+                            <button onclick="checkWarmupAnswer(this, 20, 'correct-2')" class="bg-white border border-slate-300 hover:border-indigo-400 px-4 py-2 rounded-xl text-sm font-bold transition-all">20</button>
+                        </div>
+                        <p id="correct-2" class="text-xs font-bold text-emerald-600 mt-2 hidden">✨ Superb! Multiples of 4 and 5 meet first at 20!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Concepts / Comparison -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                
+                <!-- GCF Panel -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-emerald-100 relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute -right-4 -bottom-4 text-8xl opacity-5">🍔</div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">METRIC: DIVIDING</span>
+                            <span class="text-xl">🐱</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-emerald-800 mb-2">Greatest Common Factor (GCF)</h3>
+                        <p class="text-slate-600 text-sm mb-4 leading-relaxed">
+                            Use GCF when you want to **split, share, or break** items down into smaller, equal groups. It guarantees that everyone gets the exact same amount with **no leftovers**!
+                        </p>
+                        
+                        <div class="bg-emerald-50/50 rounded-2xl p-4 border border-emerald-100 mb-4">
+                            <span class="block text-xs font-bold text-emerald-700 mb-1">🔑 GCF Secret Clues (Keywords):</span>
+                            <div class="grid grid-cols-2 gap-2 text-xs text-emerald-900 font-bold">
+                                <div>• Greatest / Largest</div>
+                                <div>• Maximum possible</div>
+                                <div>• Divided / Shared equally</div>
+                                <div>• No leftovers / Same amount</div>
+                            </div>
+                        </div>
+
+                        <!-- GCF Interactive Simulator -->
+                        <div class="bg-slate-50 rounded-2xl p-4 border border-slate-100">
+                            <span class="block text-xs font-bold text-slate-500 mb-2">📊 Interactive Anchor Example:</span>
+                            <p class="text-xs text-slate-700 mb-2"><strong>Case:</strong> 12 Cat Toys & 18 Dog Treats. What is the maximum matching gift bags we can make?</p>
+                            <div class="flex flex-wrap gap-1 mb-2">
+                                <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold">Toys (Factors of 12): 1, 2, 3, 4, <b>6</b>, 12</span>
+                                <span class="bg-rose-100 text-rose-700 px-2 py-0.5 rounded text-[10px] font-bold">Treats (Factors of 18): 1, 2, 3, <b>6</b>, 9, 18</span>
+                            </div>
+                            <p class="text-xs text-emerald-700 font-bold">👉 Greatest common factor is 6! So we make 6 identical bags (each has 2 toys & 3 treats).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LCM Panel -->
+                <div class="bg-white rounded-3xl p-6 shadow-sm border border-indigo-100 relative overflow-hidden flex flex-col justify-between">
+                    <div class="absolute -right-4 -bottom-4 text-8xl opacity-5">⏰</div>
+                    <div>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full">METRIC: REPEATING</span>
+                            <span class="text-xl">🐶</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-indigo-800 mb-2">Least Common Multiple (LCM)</h3>
+                        <p class="text-slate-600 text-sm mb-4 leading-relaxed">
+                            Use LCM when events **happen repeatedly at different intervals**, and you need to figure out when those events will line up or **coincide again in the future**.
+                        </p>
+                        
+                        <div class="bg-indigo-50/50 rounded-2xl p-4 border border-indigo-100 mb-4">
+                            <span class="block text-xs font-bold text-indigo-700 mb-1">🔑 LCM Secret Clues (Keywords):</span>
+                            <div class="grid grid-cols-2 gap-2 text-xs text-indigo-900 font-bold">
+                                <div>• Smallest / Least / Minimum</div>
+                                <div>• Next time / Again together</div>
+                                <div>• Coincide / Repeat</div>
+                                <div>• Cycles / Multiple intervals</div>
+                            </div>
+                        </div>
+
+                        <!-- LCM Interactive Simulator -->
+                        <div class="bg-slate-50 rounded-2xl p-4 border border-slate-100">
+                            <span class="block text-xs font-bold text-slate-500 mb-2">📊 Interactive Anchor Example:</span>
+                            <p class="text-xs text-slate-700 mb-2"><strong>Case:</strong> Blue pet light flashes every 4s. Red light flashes every 6s. When do they flash together?</p>
+                            <div class="flex flex-wrap gap-1 mb-2">
+                                <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-[10px] font-bold">Blue (Multiples of 4): 4, 8, <b>12</b>, 16, 20...</span>
+                                <span class="bg-red-100 text-red-700 px-2 py-0.5 rounded text-[10px] font-bold">Red (Multiples of 6): 6, <b>12</b>, 18, 24, 30...</span>
+                            </div>
+                            <p class="text-xs text-indigo-700 font-bold">👉 Least common multiple is 12! So they will flash together again on the 12th second.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Quick Start Card -->
+            <div class="bg-gradient-to-r from-orange-400 to-amber-400 rounded-3xl p-6 text-white text-center shadow-md">
+                <h3 class="text-xl font-bold mb-1">Ready to solve the 10 Detective Cases, Angeliq?</h3>
+                <p class="text-sm text-orange-50 mb-4">Click the button below to start your Interactive Homework!</p>
+                <button onclick="switchTab('quiz')" class="bg-white text-orange-600 hover:bg-orange-50 font-bold px-8 py-3 rounded-full transition-all shadow-md bounce-hover">
+                    Go to Homework Quiz 🐾
+                </button>
+            </div>
+
+        </section>
+
+        <!-- ================== TAB 2: INTERACTIVE QUIZ ================== -->
+        <section id="tab-quiz" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Left Grid: Side Navigation Mission Panel -->
+            <div class="lg:col-span-4 flex flex-col gap-4">
+                <div class="bg-white rounded-3xl p-5 shadow-sm border border-orange-100">
+                    <h2 class="text-lg font-bold text-slate-700 mb-3 flex items-center gap-2">
+                        <span>📜</span> Case Selection
+                    </h2>
+                    
+                    <p class="text-[10px] text-slate-400 mb-2 uppercase tracking-wider font-bold">Medium Difficulty Cases</p>
+                    <div class="grid grid-cols-2 gap-2 mb-4" id="medium-missions"></div>
+
+                    <p class="text-[10px] text-slate-400 mb-2 uppercase tracking-wider font-bold">Hard Difficulty Cases</p>
+                    <div class="grid grid-cols-2 gap-2" id="hard-missions"></div>
+                </div>
+
+                <!-- Mascot Info Card -->
+                <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-5 border border-indigo-100 relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 text-7xl opacity-10">🐱</div>
+                    <h4 class="font-bold text-indigo-800 flex items-center gap-2 mb-2">
+                        <span>💡</span> Pro Hint
+                    </h4>
+                    <p class="text-xs text-indigo-700 leading-relaxed">
+                        If the problem involves <strong>cutting, sharing, packaging, or splitting</strong> items into the largest equal sets, you are on a <strong>GCF</strong> case!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Grid: Active Case File -->
+            <div class="lg:col-span-8 flex flex-col gap-6">
+                
+                <!-- Main Active Question Card -->
+                <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-orange-100 flex flex-col gap-5 relative" id="active-card">
+                    
+                    <div class="flex items-center justify-between">
+                        <span id="case-difficulty" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                            Loading...
+                        </span>
+                        <span id="case-method" class="text-xs font-bold text-slate-400">
+                            Loading...
+                        </span>
+                    </div>
+
+                    <!-- Pet Buddy Dialogue -->
+                    <div class="flex gap-4 items-start bg-amber-50/50 p-4 rounded-2xl border border-orange-100">
+                        <div id="pet-avatar" class="text-4xl animate-bounce">🐶</div>
+                        <div class="flex-1">
+                            <span id="pet-name" class="font-bold text-xs text-slate-600 block">Detective Milo says:</span>
+                            <p id="pet-tip" class="text-xs text-slate-500 italic">Let's check the clues!</p>
+                        </div>
+                    </div>
+
+                    <!-- Question Container -->
+                    <div>
+                        <span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mb-1 block">Official Case Description:</span>
+                        <p id="question-text" class="text-base md:text-lg font-kids text-slate-700 leading-relaxed"></p>
+                    </div>
+
+                    <!-- Selection Buttons -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="options-box"></div>
+
+                    <!-- Hidden Explanation Section -->
+                    <div id="explanation-box" class="hidden">
+                        <div class="bg-emerald-50 border-2 border-emerald-100 p-5 rounded-2xl">
+                            <h4 class="font-bold text-emerald-800 flex items-center gap-2 mb-2 text-sm md:text-base">
+                                🔍 Detective's Case Notebook Summary
+                            </h4>
+                            <div id="explanation-text" class="text-emerald-700 text-xs md:text-sm leading-relaxed space-y-2"></div>
+                        </div>
+                    </div>
+
+                    <!-- Card Footer Control Buttons -->
+                    <div class="flex justify-between items-center border-t border-slate-100 pt-4 mt-2">
+                        <button id="prev-btn" onclick="prevQuestion()" class="px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-all">
+                            ← Previous Case
+                        </button>
+                        <button id="next-btn" onclick="nextQuestion()" class="bg-slate-100 hover:bg-orange-100 hover:text-orange-700 text-slate-600 px-5 py-2 rounded-xl font-bold text-xs transition-all">
+                            Next Case 🐾
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Final Completion Screen (Hidden until the end) -->
+                <div id="victory-card" class="hidden bg-gradient-to-br from-amber-100 via-orange-50 to-pink-100 rounded-3xl p-8 text-center border-2 border-amber-300 shadow-md flex flex-col items-center gap-5">
+                    <span class="text-7xl">🏆🐩🐱💖</span>
+                    <div>
+                        <h2 class="text-3xl font-bold text-amber-800 mb-2">Spectacular Work, Detective Angeliq!</h2>
+                        <p class="text-slate-600 text-sm max-w-md mx-auto">
+                            You successfully analyzed and resolved all 10 GCF & LCM homework challenges! Whiskers and Milo are proud to have you on the squad!
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3 w-full justify-center">
+                        <button onclick="restartHomework()" class="bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-2.5 rounded-full shadow transition-all">
+                            Solve Again 🔄
+                        </button>
+                        <a href="https://learn.algonova.id/login" target="_blank" class="bg-white border border-orange-500 text-orange-600 hover:bg-orange-50 font-bold px-6 py-2.5 rounded-full transition-all text-center text-sm">
+                            Submit to AlgoNova Portal 🚀
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-500 py-6 text-center text-xs border-t border-slate-800 mt-auto">
+        <p>© 2026 AlgoNova Academy. Built with love for Angeliq's homework practice. 🐾</p>
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        // Complete Homework Question database from PDF
+        const quizData = [
+            {
+                id: 1,
+                difficulty: "Medium",
+                code: "Medium Case 1",
+                icon: "🔴🔵",
+                buddy: "🐶",
+                buddyName: "Milo",
+                buddyTip: "Sarah wants to share/group elements into 'identical necklaces'. This is a GCF Case!",
+                question: "Sarah has 15 red beads and 20 blue beads. She wants to make identical necklaces. What is the greatest number of necklaces she can make?",
+                type: "GCF",
+                options: [
+                    "3 necklaces",
+                    "5 necklaces",
+                    "15 necklaces",
+                    "20 necklaces"
+                ],
+                correctIndex: 1,
+                explanation: "We must find the <strong>Greatest Common Factor (GCF)</strong> of 15 and 20 because we are dividing items equally.<br>• Factors of 15: 1, 3, <strong>5</strong>, 15<br>• Factors of 20: 1, 2, 4, <strong>5</strong>, 10, 20<br><br>The greatest factor they share is <strong>5</strong>. Thus, Sarah can make <strong>5 necklaces</strong>."
+            },
+            {
+                id: 2,
+                difficulty: "Medium",
+                code: "Medium Case 2",
+                icon: "🚆⏰",
+                buddy: "🐱",
+                buddyName: "Whiskers",
+                buddyTip: "Trains are leaving repeatedly every 10 and 15 mins. Find the matching time! It is an LCM Case!",
+                question: "A train to City A leaves every 10 minutes. A train to City B leaves every 15 minutes. If they both leave at 8:00 AM, when is the next time they leave together?",
+                type: "LCM",
+                options: [
+                    "8:15 AM",
+                    "8:20 AM",
+                    "8:30 AM",
+                    "9:00 AM"
+                ],
+                correctIndex: 2,
+                explanation: "We must compute the <strong>Least Common Multiple (LCM)</strong> of 10 and 15.<br>• Multiples of 10: 10, 20, <strong>30</strong>, 40, 50...<br>• Multiples of 15: 15, <strong>30</strong>, 45, 60...<br><br>The LCM is <strong>30 minutes</strong>. Adding 30 minutes to 8:00 AM gives us <strong>8:30 AM</strong>."
+            },
+            {
+                id: 3,
+                difficulty: "Medium",
+                code: "Medium Case 3",
+                icon: "🧁🍪",
+                buddy: "🐶",
+                buddyName: "Milo",
+                buddyTip: "The baker is dividing pastries into identical boxes. Division means we must find GCF!",
+                question: "A baker has 24 cupcakes and 32 cookies. What is the largest number of boxes he can pack so each has the same amount of each treat?",
+                type: "GCF",
+                options: [
+                    "4 boxes",
+                    "6 boxes",
+                    "8 boxes",
+                    "12 boxes"
+                ],
+                correctIndex: 2,
+                explanation: "We are looking for the <strong>GCF</strong> of 24 and 32 to pack items without leftover treat differences.<br>• Factors of 24: 1, 2, 3, 4, 6, <strong>8</strong>, 12, 24<br>• Factors of 32: 1, 2, 4, <strong>8</strong>, 16, 32<br><br>The GCF is <strong>8</strong>. So, the maximum boxes he can package is <strong>8 boxes</strong>."
+            },
+            {
+                id: 4,
+                difficulty: "Medium",
+                code: "Medium Case 4",
+                icon: "✏️🧼",
+                buddy: "🐱",
+                buddyName: "Whiskers",
+                buddyTip: "We need matching quantities of pencils (packs of 12) and erasers (packs of 9). Find the LCM!",
+                question: "Pencils come in packs of 12, and erasers come in packs of 9. What is the smallest number of each you must buy to have exactly one eraser per pencil?",
+                type: "LCM",
+                options: [
+                    "18 pencils & erasers",
+                    "24 pencils & erasers",
+                    "36 pencils & erasers",
+                    "45 pencils & erasers"
+                ],
+                correctIndex: 2,
+                explanation: "We calculate the <strong>LCM</strong> of 12 and 9 to align the packs perfectly.<br>• Multiples of 12: 12, 24, <strong>36</strong>, 48...<br>• Multiples of 9: 9, 18, 27, <strong>36</strong>, 45...<br><br>The LCM is <strong>36</strong> (meaning 3 packs of pencils and 4 packs of erasers)."
+            },
+            {
+                id: 5,
+                difficulty: "Hard",
+                code: "Hard Case 1",
+                icon: "📐🧱",
+                buddy: "🐶",
+                buddyName: "Milo",
+                buddyTip: "Dividing a floor (48 x 72) into identical squares is a classic visual GCF division problem!",
+                question: "A rectangular floor is 48 inches wide and 72 inches long. You want to cover it with the largest possible square tiles without cutting any. What is the side length of the square tile?",
+                type: "GCF",
+                options: [
+                    "12 inches",
+                    "16 inches",
+                    "24 inches",
+                    "48 inches"
+                ],
+                correctIndex: 2,
+                explanation: "Find the <strong>GCF</strong> of 48 and 72.<br>• Factors of 48: 1, 2, 3, 4, 6, 8, 12, 16, <strong>24</strong>, 48<br>• Factors of 72: 1, 2, 3, 4, 6, 8, 9, 12, 18, <strong>24</strong>, 36, 72<br><br>The GCF is <strong>24 inches</strong>. This size covers the floor perfectly."
+            },
+            {
+                id: 6,
+                difficulty: "Hard",
+                code: "Hard Case 2",
+                icon: "🔔🕰️",
+                buddy: "🐱",
+                buddyName: "Whiskers",
+                buddyTip: "Three intervals: 12, 15, and 18 minutes. Find the LCM of all 3 numbers!",
+                question: "Three bells toll at intervals of 12, 15, and 18 minutes respectively. If they toll together at noon, when will they next toll together?",
+                type: "LCM",
+                options: [
+                    "1:30 PM",
+                    "2:00 PM",
+                    "3:00 PM",
+                    "6:00 PM"
+                ],
+                correctIndex: 2,
+                explanation: "We require the <strong>LCM</strong> of 12, 15, and 18 minutes.<br>• Multiples of 12: 12, 24, ..., <strong>180</strong><br>• Multiples of 15: 15, 30, ..., <strong>180</strong><br>• Multiples of 18: 18, 36, ..., <strong>180</strong><br><br>LCM = <strong>180 minutes</strong> (which is exactly 3 hours). 12:00 PM + 3 hours = <strong>3:00 PM</strong>."
+            },
+            {
+                id: 7,
+                difficulty: "Hard",
+                code: "Hard Case 3",
+                icon: "🌹💐",
+                buddy: "🐶",
+                buddyName: "Milo",
+                buddyTip: "Three groups of flowers (60, 84, 108) shared equally. Let's find GCF to make identical bouquets!",
+                question: "An gardener has 60 roses, 84 daisies, and 108 tulips. He wants to create identical bouquets with all flowers used. What is the maximum number of bouquets he can make, and how many of each flower will be in one?",
+                type: "GCF",
+                options: [
+                    "6 bouquets (10 roses, 14 daisies, 18 tulips)",
+                    "12 bouquets (5 roses, 7 daisies, 9 tulips each)",
+                    "15 bouquets (4 roses, 5 daisies, 7 tulips)",
+                    "12 bouquets (10 roses, 12 daisies, 14 tulips)"
+                ],
+                correctIndex: 1,
+                explanation: "Calculate the <strong>GCF</strong> of 60, 84, and 108.<br>• GCF = <strong>12 bouquets</strong>.<br>• Individual counts: 60/12 = 5 roses, 84/12 = 7 daisies, 108/12 = 9 tulips."
+            },
+            {
+                id: 8,
+                difficulty: "Hard",
+                code: "Hard Case 4",
+                icon: "🚄🕧",
+                buddy: "🐱",
+                buddyName: "Whiskers",
+                buddyTip: "Intervals of 45 mins and 60 mins. First find the LCM in minutes, then convert it to hours!",
+                question: "Two high-speed trains leave the station. Train A returns every 45 minutes, and Train B returns every 60 minutes. How many hours will pass before they meet at the station again?",
+                type: "LCM",
+                options: [
+                    "2 hours",
+                    "3 hours",
+                    "4 hours",
+                    "180 hours"
+                ],
+                correctIndex: 1,
+                explanation: "Calculate the <strong>LCM</strong> of 45 and 60 minutes.<br>• Multiples of 45: 45, 90, 135, <strong>180</strong>...<br>• Multiples of 60: 60, 120, <strong>180</strong>...<br><br>The LCM is <strong>180 minutes</strong>. Convert to hours: 180 / 60 = <strong>3 hours</strong>."
+            },
+            {
+                id: 9,
+                difficulty: "Hard",
+                code: "Hard Case 5",
+                icon: "🤸‍♀️🏅",
+                buddy: "🐶",
+                buddyName: "Milo",
+                buddyTip: "Dividing 42 men and 63 women into equal-sized teams without mixing them up. Find the GCF!",
+                question: "A gym instructor wants to divide 42 men and 63 women into equal-sized teams. Each team must have only men or only women. What is the largest possible team size?",
+                type: "GCF",
+                options: [
+                    "7 people per team",
+                    "14 people per team",
+                    "21 people per team",
+                    "42 people per team"
+                ],
+                correctIndex: 2,
+                explanation: "We must find the <strong>GCF</strong> of 42 and 63.<br>• Factors of 42: 1, 2, 3, 6, 7, 14, <strong>21</strong>, 42<br>• Factors of 63: 1, 3, 7, 9, <strong>21</strong>, 63<br><br>The GCF is <strong>21</strong>. Thus, the largest possible team size is <strong>21 people</strong>."
+            },
+            {
+                id: 10,
+                difficulty: "Hard",
+                code: "Hard Case 6",
+                icon: "🎬🎞️",
+                buddy: "🐱",
+                buddyName: "Whiskers",
+                buddyTip: "Last case! Movie durations are 90 and 120 mins. Find their LCM and add that duration to 1:00 PM!",
+                question: "A movie theater runs two movies. Movie A is 90 minutes long, and Movie B is 120 minutes long. If they both start at 1:00 PM, when is the next time they will both start again at the same time?",
+                type: "LCM",
+                options: [
+                    "4:00 PM",
+                    "5:00 PM",
+                    "6:00 PM",
+                    "7:00 PM"
+                ],
+                correctIndex: 3,
+                explanation: "Find the <strong>LCM</strong> of 90 and 120 minutes.<br>• Multiples of 90: 90, 180, 270, <strong>360</strong>...<br>• Multiples of 120: 120, 240, <strong>360</strong>...<br><br>The LCM is <strong>360 minutes</strong> (6 hours). Adding 6 hours to 1:00 PM gives us <strong>7:00 PM</strong>."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let solvedState = {};
+
+        // Switch Tabs (Learn <-> Quiz)
+        function switchTab(tabId) {
+            const learnTab = document.getElementById('tab-learn');
+            const quizTab = document.getElementById('tab-quiz');
+            const learnBtn = document.getElementById('tab-learn-btn');
+            const quizBtn = document.getElementById('tab-quiz-btn');
+            const progBar = document.getElementById('progress-container');
+            const badge = document.getElementById('quiz-badge');
+
+            if (tabId === 'learn') {
+                learnTab.classList.remove('hidden');
+                quizTab.classList.add('hidden');
+                progBar.classList.add('hidden');
+                badge.classList.add('hidden');
+                learnBtn.className = "py-4 px-6 border-b-4 border-orange-500 text-orange-600 font-bold text-sm md:text-base flex items-center gap-2 transition-all";
+                quizBtn.className = "py-4 px-6 border-b-4 border-transparent text-slate-500 hover:text-orange-500 font-bold text-sm md:text-base flex items-center gap-2 transition-all";
+            } else {
+                learnTab.classList.add('hidden');
+                quizTab.classList.remove('hidden');
+                progBar.classList.remove('hidden');
+                badge.classList.remove('hidden');
+                learnBtn.className = "py-4 px-6 border-b-4 border-transparent text-slate-500 hover:text-orange-500 font-bold text-sm md:text-base flex items-center gap-2 transition-all";
+                quizBtn.className = "py-4 px-6 border-b-4 border-orange-500 text-orange-600 font-bold text-sm md:text-base flex items-center gap-2 transition-all";
+                loadQuestion(currentQuestionIndex);
+            }
+        }
+
+        // Check Quick Start Diagnostic Buttons
+        function checkWarmupAnswer(btnElement, correctAnswer, feedbackId) {
+            const val = parseInt(btnElement.innerText);
+            if (val === correctAnswer) {
+                btnElement.className = "bg-emerald-500 border-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all";
+                document.getElementById(feedbackId).classList.remove('hidden');
+                confetti({ particleCount: 15, spread: 40 });
+            } else {
+                btnElement.className = "bg-rose-500 border-rose-600 text-white px-4 py-2 rounded-xl text-sm font-bold transition-all";
+            }
+        }
+
+        // Load Question Detail
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const q = quizData[index];
+
+            // Setup Badge Diff & Type
+            const diffBadge = document.getElementById('case-difficulty');
+            diffBadge.innerText = `${q.difficulty} Case #${q.id}`;
+            diffBadge.className = `px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                q.difficulty === 'Medium' ? 'bg-amber-100 text-amber-700' : 'bg-purple-100 text-purple-700'
+            }`;
+
+            document.getElementById('case-method').innerText = `Code Type: ${q.type}`;
+
+            // Buddy Speech
+            document.getElementById('pet-avatar').innerText = q.buddy;
+            document.getElementById('pet-name').innerText = `Detective ${q.buddyName} says:`;
+            document.getElementById('pet-tip').innerText = `"${q.buddyTip}"`;
+
+            // Question Display
+            document.getElementById('question-text').innerHTML = q.question;
+
+            // Render Options with Green/Red Visual Feedbacks
+            const optionsBox = document.getElementById('options-box');
+            optionsBox.innerHTML = "";
+
+            const activeSolved = solvedState[q.id];
+
+            q.options.forEach((opt, idx) => {
+                const optBtn = document.createElement('button');
+                let optStyle = "bg-white hover:bg-orange-50/50 border border-orange-200 text-slate-700 hover:border-orange-400";
+
+                if (activeSolved !== undefined) {
+                    const isCorrectOption = idx === q.correctIndex;
+                    const isChosenOption = idx === activeSolved.chosenIndex;
+
+                    if (isChosenOption) {
+                        if (activeSolved.isCorrect) {
+                            optStyle = "bg-emerald-500 border-emerald-600 text-white font-bold scale-[1.01] shadow-md pointer-events-none";
+                        } else {
+                            optStyle = "bg-rose-500 border-rose-600 text-white font-bold scale-[1.01] shadow-md pointer-events-none";
+                        }
+                    } else if (isCorrectOption) {
+                        optStyle = "bg-emerald-100 border-emerald-400 text-emerald-800 font-bold pointer-events-none";
+                    } else {
+                        optStyle = "bg-slate-50 border-slate-100 text-slate-400 opacity-60 pointer-events-none";
+                    }
+                    optBtn.disabled = true;
+                } else {
+                    optBtn.onclick = () => selectAnswer(idx);
+                }
+
+                optBtn.className = `${optStyle} text-left p-4 rounded-2xl text-sm md:text-base font-bold transition-all flex items-center justify-between group`;
+                optBtn.innerHTML = `
+                    <span>${opt}</span>
+                    <span class="text-xl opacity-0 group-hover:opacity-100 transition-opacity">🐾</span>
+                `;
+                optionsBox.appendChild(optBtn);
+            });
+
+            // Handle Explanation reveal
+            const expBox = document.getElementById('explanation-box');
+            if (activeSolved !== undefined) {
+                expBox.classList.remove('hidden');
+                document.getElementById('explanation-text').innerHTML = q.explanation;
+            } else {
+                expBox.classList.add('hidden');
+            }
+
+            // Controls
+            document.getElementById('prev-btn').disabled = index === 0;
+            document.getElementById('prev-btn').className = index === 0 
+                ? "px-4 py-2 rounded-xl text-xs font-bold text-slate-300 cursor-not-allowed" 
+                : "px-4 py-2 rounded-xl text-xs font-bold text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-all";
+
+            if (index === quizData.length - 1) {
+                document.getElementById('next-btn').innerText = "Finish Mission! 🏆";
+            } else {
+                document.getElementById('next-btn').innerText = "Next Case 🐾";
+            }
+
+            renderSidebarButtons();
+        }
+
+        // Render Side Navigation button grids
+        function renderSidebarButtons() {
+            const medContainer = document.getElementById('medium-missions');
+            const hardContainer = document.getElementById('hard-missions');
+            medContainer.innerHTML = "";
+            hardContainer.innerHTML = "";
+
+            quizData.forEach((q, idx) => {
+                const solveData = solvedState[q.id];
+                let btnStyle = "bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100";
+                let statusIcon = "";
+
+                if (solveData !== undefined) {
+                    if (solveData.isCorrect) {
+                        btnStyle = "bg-emerald-500 border border-emerald-600 text-white shadow-sm";
+                        statusIcon = " ✅";
+                    } else {
+                        btnStyle = "bg-rose-500 border border-rose-600 text-white shadow-sm";
+                        statusIcon = " ❌";
+                    }
+                }
+
+                if (idx === currentQuestionIndex) {
+                    btnStyle += " ring-4 ring-amber-400";
+                }
+
+                const button = document.createElement('button');
+                button.className = `${btnStyle} py-2.5 px-2 rounded-2xl text-xs font-bold font-kids flex flex-col items-center justify-center gap-0.5 transition-all`;
+                button.onclick = () => loadQuestion(idx);
+                button.innerHTML = `
+                    <span class="text-sm">${q.icon}</span>
+                    <span>Case ${q.id}${statusIcon}</span>
+                `;
+
+                if (q.difficulty === 'Medium') {
+                    medContainer.appendChild(button);
+                } else {
+                    hardContainer.appendChild(button);
+                }
+            });
+        }
+
+        // Option selected by user
+        function selectAnswer(chosenIdx) {
+            const q = quizData[currentQuestionIndex];
+            const isCorrect = chosenIdx === q.correctIndex;
+
+            solvedState[q.id] = {
+                chosenIndex: chosenIdx,
+                isCorrect: isCorrect
+            };
+
+            // Calculate progress stats
+            updateProgress();
+            
+            // Re-render
+            loadQuestion(currentQuestionIndex);
+
+            if (isCorrect) {
+                confetti({
+                    particleCount: 40,
+                    spread: 60,
+                    origin: { y: 0.8 }
+                });
+            }
+
+            checkHomeworkCompletion();
+        }
+
+        // Handle navigation clicks
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                loadQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                loadQuestion(currentQuestionIndex + 1);
+            } else {
+                checkHomeworkCompletion(true);
+            }
+        }
+
+        // Sync Progress bar metrics
+        function updateProgress() {
+            const solvedKeys = Object.keys(solvedState);
+            const totalCorrect = solvedKeys.filter(k => solvedState[k].isCorrect).length;
+            const totalSolved = solvedKeys.length;
+
+            document.getElementById('solved-counter').innerText = `${totalSolved} / ${quizData.length}`;
+            document.getElementById('stars-counter').innerText = `⭐ ${totalCorrect}`;
+
+            // Track Milo across the line
+            const percentage = (totalSolved / quizData.length) * 100;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+            
+            const dogRunner = document.getElementById('dog-runner');
+            dogRunner.style.left = `calc(${percentage}% - 10px)`;
+
+            if (percentage === 100) {
+                dogRunner.innerText = "🐕🥳";
+            } else if (percentage > 0) {
+                dogRunner.innerText = "🏃‍♂️🐶";
+            } else {
+                dogRunner.innerText = "🐶";
+            }
+        }
+
+        // Check if all answers have been chosen
+        function checkHomeworkCompletion(forceFinish = false) {
+            const solvedKeys = Object.keys(solvedState);
+            const isDone = solvedKeys.length === quizData.length;
+
+            if (isDone || (forceFinish && isDone)) {
+                document.getElementById('active-card').classList.add('hidden');
+                document.getElementById('victory-card').classList.remove('hidden');
+
+                // Burst continuous celebrate particles
+                let end = Date.now() + (3 * 1000);
+                (function frame() {
+                    confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 } });
+                    confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 } });
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+            }
+        }
+
+        function restartHomework() {
+            solvedState = {};
+            currentQuestionIndex = 0;
+            document.getElementById('active-card').classList.remove('hidden');
+            document.getElementById('victory-card').classList.add('hidden');
+            loadQuestion(0);
+            updateProgress();
+        }
+
+        // Preload first view
+        window.onload = function() {
+            renderSidebarButtons();
+            updateProgress();
+        };
+    </script>
+</body>
+</html>
